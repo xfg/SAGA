@@ -232,6 +232,9 @@ class SagaRunner {
         instanceId: {
           $ne: this.instanceId,
         },
+        createdAt: {
+          $lt: Date.now() - 60 * 1000
+        }
       }, {
         _id: 1,
       }).limit(10).toArray();
@@ -317,6 +320,7 @@ class SagaRunner {
         logId,
         runner: this.name,
         instanceId: this.instanceId,
+        createdAt: Date.now(),
         state: QUEUE_STATE_RUNNING,
       });
 
